@@ -1,0 +1,120 @@
+.calculator {
+    height: 435px;
+    width: 240px;
+    border-style: ridge;
+    background-color: rgb(240,240,240);
+    position: relative;
+}
+
+.container {
+    margin: 0px;
+    border: none;
+    background-color: rgb(240,240,240);
+    position: relative;
+}
+
+#cDisplay {
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#cInfo {
+    height: 15px;
+    width: 100%;
+    background-color: rgb(20,20,20);
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    position: absolute;
+    left: 0px;
+    top: 40px;
+}
+
+#cButtons {
+    height: 380px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 55px;
+}
+
+#cFunctions {
+    height: 180px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#cDigits {
+    height: 190px;
+    width: 140px;
+    position: absolute;
+    left: 0px;
+    top: 190px;
+    margin-left: 6px;
+}
+
+#cOperators {
+    height: 190px;
+    width: 94px;
+    position: absolute;
+    left: 146px;
+    top: 190px;
+}
+
+#display {
+    width: 220px;
+    height: 32px;
+    position: absolute;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 6px;
+    font-size: 22px;
+    text-align: right;
+    top: 2px;
+    left: 9px;
+    background-color: rgb(250,250,255);
+}
+
+button {
+    text-align: center;
+    vertical-align: middle;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 6px;
+    box-shadow: 0px 3px rgb(208,208,208);
+}
+
+button:active {
+    box-shadow: 0px 1px rgb(208,208,208);
+}
+
+.button-digit,
+.button-operation
+{
+    height: 40px;
+    width: 40px;
+    background-color: rgb(64,64,64);
+    color: rgb(192,192,192);
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.button-function {
+    height:32px;
+    width: 32px;
+    background-color: rgb(32,32,32);
+    color: rgb(224,224,224);
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 8px;
+    margin-bottom: 2px;
+}
+
+
