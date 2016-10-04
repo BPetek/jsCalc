@@ -47,9 +47,12 @@ var JSC = function(undefined) {
     }
 
     var refreshDisplay = function(value) {
-console.log('Value = ' + value, 'vCur = ' + vCur);
         if (value != undefined) {
-            document.getElementById('display').innerHTML = value;
+            vDisplay = value.toString();
+            if (vDisplay.length > 20) {
+                vDisplay = value.toExponential();
+            }
+            document.getElementById('display').innerHTML = vDisplay;
             return;
         }
         
@@ -59,8 +62,6 @@ console.log('Value = ' + value, 'vCur = ' + vCur);
         var signV = '+';
         var signE = '+';
         
-        console.log (buttonList);
-
 // If button list is empty clear display.
         len = buttonList.length;
         if (len > 0) {
@@ -87,17 +88,14 @@ console.log('Value = ' + value, 'vCur = ' + vCur);
         
 // If sign of value or exponent is negative, display it at the right position.
             if (signV == '-') vDisplay = '-' + vDisplay;
-            if (signE == '-') {
-                var ind = vDisplay.indexOf('E') + 1;
-                if (ind > 0) {
-                    vDisplay = vDisplay.slice(0, ind) + '-' + vDisplay.slice(ind);
-                }
+            var ind = vDisplay.indexOf('E') + 1;
+            if (ind > 0) {
+                vDisplay = vDisplay.slice(0, ind) + signE + vDisplay.slice(ind);
             }
         }
         
 // Try to convert this string to number.
         vCur = Number(vDisplay);
-console.log ('refresh display ' + vDisplay, 'vCur = ' + vCur, 'vAcc = ' + vAcc);       
         if (vDisplay.length > 20) {
             vDisplay = 'overflow';
         }
@@ -152,6 +150,13 @@ console.log ('refresh display ' + vDisplay, 'vCur = ' + vCur, 'vAcc = ' + vAcc);
             contOperators.appendChild(but);
         }
         
+// Create functions buttons.
+        var funs = ['sqr', 'sqrt', 'sin', 'cos', 'tg', 'ctg', 'ln', 'log'];
+        for (var i in funs) {
+            var but = newElement('button', 'button-function', 'button' + funs[i], funs[i]);
+            but.addEventListener('click', execButton);
+            contFunctions.appendChild(but);
+        }
         return calc;
     }
 
@@ -199,6 +204,10 @@ console.log ('refresh display ' + vDisplay, 'vCur = ' + vCur, 'vAcc = ' + vAcc);
 // If operation - execute operation.
         else if (this.className.search('button-operation') > -1) {
             executeOperation(this.id.slice(6));
+        }
+// If function - execute function.
+        else if (this.className.search('button-function') > -1) {
+            executeFunction(this.id.slice(6));
         }
     };
 
@@ -292,6 +301,44 @@ console.log ('refresh display ' + vDisplay, 'vCur = ' + vCur, 'vAcc = ' + vAcc);
                 refreshDisplay(vCur);
         }
     }
+    
+    var executeFunction = function(button) {
+// Calculates and displays a result of a choosen function.
+// If current value is undefined, return.
+//   funs = ['sqr', 'sqrt', 'sin', 'cos', 'tg', 'ctg', 'ln', 'log'];
+        if (vCur == undefined) {
+            blinkDisplay();
+            return;
+        }       
+        switch (button) {
+            case 'sqr':
+                vCur = vCur * vCur;
+                break;
+            case 'sqrt':
+                vCur = Math.sqrt (vCur);
+                break;
+            case 'sin':
+                vCur = Math.sin(vCur);
+                break;
+            case 'cos':
+                vCur = Math.cos(vCur);
+                break;
+            case 'tg':
+                vCur = Math.tan(vCur);
+                break;
+            case 'ctg':
+                vCur = 1 / Math.tg(vCur);
+                break;
+            case 'ln':
+                vCur = Math.log(vCur);
+                break;
+            case 'log':
+                vCur = Math.log(vCur) * Math.LOG10E;
+                break;
+        }
+        vAcc = vCur;
+        refreshDisplay(vCur);
+    };
     
 // Initializes JSC - creates HTML elements and set events on buttons.
 // At the end insert element in parent.
